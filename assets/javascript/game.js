@@ -1,6 +1,9 @@
 var instancesLoaded = 1;
 var hasUserChosen = false;
 var isDefenderChosen = false;
+var whoIsUser = [];
+var whoIsEnemy = [];
+var userWeightedPower = 0;
 
 var defX = false;
 var defZ = false;
@@ -22,10 +25,12 @@ function fighter(health, attack, counter, name, id){
     this.name = name;
     this.timesAttacked = 0;
     this.iD = id;
+   
     this.isUser = false;
     this.isDead = false;
     this.isDefending = false;
     this.alreadyChosen = false;
+    
     this.createElem = function () {
         var newDiv = document.createElement("div");
 
@@ -92,10 +97,10 @@ function fighter(health, attack, counter, name, id){
         this.timesAttacked += 5;
     }
     this.battlePower = function (){
-        if(this.isUser){
-            var userAttackPower = this.attack + (Math.floor(Math.random * 10) + this.timesAttacked);
+            var userAttackPower = 0;
+            userAttackPower = this.attack + ((Math.floor(Math.random() * 10))) + this.timesAttacked;
+            userWeightedPower = userAttackPower;
             return userAttackPower;
-        }
     }
     this.testLog = function (){
         console.log(this.name);
@@ -106,8 +111,13 @@ function fighter(health, attack, counter, name, id){
 }
 
 function battleField (user, opponent){
+    user.battlePower();
+    var userAtk = userWeightedPower;
+    opponent.health += -userAtk;
+    document.getElementById("user-feed").innerText = `${user.name} attacks ${opponent.name}...${opponent.name} suffered ${userAtk} points of damage!`;
     user.health += -opponent.counterPower;
-    opponent.health += -user.battlePower();
+    document.getElementById("enemy-feed").innerText = `${opponent.name} counters... ${user.name} suffered ${opponent.counterPower} points of damage!`;
+
     user.incUserMulti();
 }
 
@@ -139,20 +149,19 @@ $(document).ready(function() {
     $("#cr-1").on("click", function (){
         if(!hasUserChosen){
             megaX.moveUserSpace();
+            whoIsUser = megaX;
         }else if(hasUserChosen &&  (!megaX.alreadyChosen)){
             megaX.moveElemToDef(); 
         }else{
             return;
         }
-       
-
-
     });
     $("#cr-2").on("click", function () {
         if(!hasUserChosen){
             zero.moveUserSpace();
         }else if(hasUserChosen && (!zero.alreadyChosen)){
             zero.moveElemToDef();
+            whoIsEnemy = zero;
 
         }else{
             return;
@@ -169,5 +178,11 @@ $(document).ready(function() {
             return;
         }
     });
+    $("#attackbtn").on("click", function () {
+        battleField(whoIsUser, whoIsEnemy);
+
+    })
 
 });
+
+console.log(megaX.battlePower());
