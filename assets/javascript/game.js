@@ -1,7 +1,4 @@
 
-
-
-
 var megaX = new fighter(150, 5, 20, "X");
 
 function fighter(health, attack, counter, name){
@@ -16,12 +13,12 @@ function fighter(health, attack, counter, name){
     this.createElem = function () {
         var newDiv = document.createElement("div");
         var image = $("<img>", {
-            src : "../images/1stcharplaceholder.png"
+            src : "assets/images/1stcharplaceholder.png"
         });
         var name = this.name;
         var hp = this.health;
 
-        newDiv.append(name).append(image).append(hp);
+        $(newDiv).append(name).append(image).append(hp);
 
         $("#box1").html(newDiv);
 
@@ -30,12 +27,12 @@ function fighter(health, attack, counter, name){
      
         var newDiv = document.createElement("div");
         var image = $("<img>", {
-            src : "../assets/images/1stcharplaceholder.png"
+            src : "1stcharplaceholder.png"
         });
         var name = this.name;
         var hp = this.health;
 
-        $(newDiv).append(name).append(image).append(hp);
+        $(newDiv).html(name).append(image).append(hp);
 
         $("#defend-space").html(newDiv);
 
