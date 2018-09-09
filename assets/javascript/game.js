@@ -40,6 +40,20 @@ function fighter(health, attack, counter, name, id){
         instancesLoaded++;
 
     }
+    this.moveUserSpace = function () {
+        //var whichID = this.iD;
+        var newDiv = document.createElement("div");
+        var image = $("<img>", {
+            src : `assets/images/${this.iD}charplaceholder.png`
+        });
+        var name = this.name;
+        var hp = this.health;
+
+        $(newDiv).append(name).append(image).append(hp);
+
+        $("#user-space").append(newDiv);
+
+    }
     this.moveElemToDef = function () {
         //var whichID = this.iD;
         var newDiv = document.createElement("div");
@@ -98,9 +112,8 @@ function render(){
 
 $(document).ready(function() {
     render();
-
     $("#cr-1").on("click", function (){
-        megaX.moveElemToDef();
+        megaX.moveUserSpace();
 
 
     });
