@@ -1,5 +1,12 @@
+var instancesLoaded = 1;
+
+
 
 var megaX = new fighter(150, 5, 20, "X");
+var zero = new fighter(135, 16, 30, "Zero");
+var sigma = new fighter(175, 15, 35, "Sigma");
+var colonel = new fighter(160, 12, 32, "Colonel");
+
 
 function fighter(health, attack, counter, name){
     this.health = health;
@@ -12,15 +19,17 @@ function fighter(health, attack, counter, name){
     this.isDefending = false;
     this.createElem = function () {
         var newDiv = document.createElement("div");
+
         var image = $("<img>", {
-            src : "assets/images/1stcharplaceholder.png"
+            src : `assets/images/${instancesLoaded}charplaceholder.png`
         });
         var name = this.name;
         var hp = this.health;
 
         $(newDiv).append(name).append(image).append(hp);
 
-        $("#box1").html(newDiv);
+        $("#box1").append(newDiv);
+        instancesLoaded++;
 
     }
     this.moveElemToDef = function () {
@@ -32,9 +41,9 @@ function fighter(health, attack, counter, name){
         var name = this.name;
         var hp = this.health;
 
-        $(newDiv).html(name).append(image).append(hp);
+        $(newDiv).append(name).append(image).append(hp);
 
-        $("#defend-space").html(newDiv);
+        $("#defend-space").append(newDiv);
 
     }
     this.incUserMulti = function (){
@@ -63,6 +72,18 @@ function battleField (user, opponent){
 function render(){
     megaX.createElem();
     megaX.testLog();
+
+    zero.createElem();
+    zero.testLog();
+
+    sigma.createElem();
+    sigma.testLog();
+
+    colonel.createElem();
+    colonel.testLog();
+    
+
+    console.log(instancesLoaded);
 
 
 }
