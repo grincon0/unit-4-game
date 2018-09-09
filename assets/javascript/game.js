@@ -1,6 +1,7 @@
 var instancesLoaded = 1;
 var hasUserChosen = false;
 var isDefenderChosen = false;
+
 var defX = false;
 var defZ = false;
 var defS = false;
@@ -24,6 +25,7 @@ function fighter(health, attack, counter, name, id){
     this.isUser = false;
     this.isDead = false;
     this.isDefending = false;
+    this.alreadyChosen = false;
     this.createElem = function () {
         var newDiv = document.createElement("div");
 
@@ -42,31 +44,49 @@ function fighter(health, attack, counter, name, id){
     }
     this.moveUserSpace = function () {
         //var whichID = this.iD;
-        var newDiv = document.createElement("div");
-        var image = $("<img>", {
-            src : `assets/images/${this.iD}charplaceholder.png`
-        });
-        var name = this.name;
-        var hp = this.health;
-
-        $(newDiv).append(name).append(image).append(hp);
-
-        $("#user-space").append(newDiv);
-
+        if(!hasUserChosen){
+            var newDiv = document.createElement("div");
+            var image = $("<img>", {
+                src : `assets/images/${this.iD}charplaceholder.png`
+            });
+            var name = this.name;
+            var hp = this.health;
+    
+            $(newDiv).append(name).append(image).append(hp);
+    
+            $("#user-space").append(newDiv);
+            this.isUser = true;
+            this.alreadyChosen = true;
+            hasUserChosen = true;
+            
+        }else if (hasUserChosen || this.isUser){
+            return;
+        }else{
+            return;
+        }
     }
     this.moveElemToDef = function () {
         //var whichID = this.iD;
-        var newDiv = document.createElement("div");
-        var image = $("<img>", {
-            src : `assets/images/${this.iD}charplaceholder.png`
-        });
-        var name = this.name;
-        var hp = this.health;
+        if(hasUserChosen && !isDefenderChosen){
+            var newDiv = document.createElement("div");
+            var image = $("<img>", {
+                src : `assets/images/${this.iD}charplaceholder.png`
+            });
+            var name = this.name;
+            var hp = this.health;
+    
+            $(newDiv).append(name).append(image).append(hp);
+    
+            $("#defend-space").append(newDiv);
+            this.alreadyChosen = true;
+            isDefenderChosen = true;
 
-        $(newDiv).append(name).append(image).append(hp);
-
-        $("#defend-space").append(newDiv);
-
+            
+        }else if(!hasUserChosen){
+            return;
+        }else{
+            return;
+        }
     }
     this.incUserMulti = function (){
         this.timesAttacked += 5;
@@ -91,6 +111,10 @@ function battleField (user, opponent){
     user.incUserMulti();
 }
 
+function defenderHasBeenDefeated(){
+    isDefenderChosen = false;
+}
+
 function render(){
     megaX.createElem();
     megaX.testLog();
@@ -113,8 +137,37 @@ function render(){
 $(document).ready(function() {
     render();
     $("#cr-1").on("click", function (){
-        megaX.moveUserSpace();
+        if(!hasUserChosen){
+            megaX.moveUserSpace();
+        }else if(hasUserChosen &&  (!megaX.alreadyChosen)){
+            megaX.moveElemToDef(); 
+        }else{
+            return;
+        }
+       
 
 
     });
+    $("#cr-2").on("click", function () {
+        if(!hasUserChosen){
+            zero.moveUserSpace();
+        }else if(hasUserChosen && (!zero.alreadyChosen)){
+            zero.moveElemToDef();
+
+        }else{
+            return;
+        }
+
+    });
+    $("#cr-3").on("click", function (){
+        if(!hasUserChosen){
+            sigma.moveUserSpace();
+            
+        }else if(hasUserChosen && (!sigma.alreadyChosen)){
+            sigma.moveElemToDef();
+        }else{
+            return;
+        }
+    });
+
 });
