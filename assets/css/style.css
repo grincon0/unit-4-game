@@ -2,7 +2,14 @@
     background-color: pink;
 }
 
-
+.main{
+    float:left;
+    clear: both;
+}
+.charBlock{
+    float: left;
+    clear: right;
+}
 
 #cr-2{
     background-color: greenyellow;

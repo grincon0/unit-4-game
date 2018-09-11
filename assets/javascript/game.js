@@ -41,6 +41,7 @@ function fighter(health, attack, counter, name, id){
     this.createElem = function () {
         var newDiv = document.createElement("div");
 
+
         var image = $("<img>", {
             src : `assets/images/${instancesLoaded}charplaceholder.png`
         });
@@ -52,7 +53,9 @@ function fighter(health, attack, counter, name, id){
         $(hp).text(this.health);
 
         $(newDiv).append(name).append(image).append(hp);
-        $(newDiv).attr("id" , `cr-${instancesLoaded}`);
+        $(newDiv).attr("id" , `cr-${instancesLoaded}`).attr("class", 'charBlock');
+
+        
         fighterz.push(newDiv);
         instancesLoaded++;
 
@@ -299,7 +302,13 @@ $(document).ready(function() {
         }
     });
     $("#attackbtn").on("click", function () {
-        battleField(whoIsUser, whoIsEnemy);
+
+        if(!isUserDead){
+            battleField(whoIsUser, whoIsEnemy);
+        }else{
+            return;
+        }
+        
 
     });
 
