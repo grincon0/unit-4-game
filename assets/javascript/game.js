@@ -3,7 +3,14 @@ var hasUserChosen = false;
 var isDefenderChosen = false;
 var whoIsUser = [];
 var whoIsEnemy = [];
+var fighterz = [];
+
 var userWeightedPower = 0;
+var Xonce = false;
+var Zonce = false;
+var Sonce = false;
+var Conce = false;
+var isUserDead = false;
 
 var defX = false;
 var defZ = false;
@@ -38,12 +45,15 @@ function fighter(health, attack, counter, name, id){
             src : `assets/images/${instancesLoaded}charplaceholder.png`
         });
         var name = this.name;
-        var hp = this.health;
+        var hp = $("<p>", {
+            id : `hp-${this.iD}`
+        });
+
+        $(hp).text(this.health);
 
         $(newDiv).append(name).append(image).append(hp);
         $(newDiv).attr("id" , `cr-${instancesLoaded}`);
-
-        $("#box1").append(newDiv);
+        fighterz.push(newDiv);
         instancesLoaded++;
 
     }
@@ -55,9 +65,14 @@ function fighter(health, attack, counter, name, id){
                 src : `assets/images/${this.iD}charplaceholder.png`
             });
             var name = this.name;
-            var hp = this.health;
+            var hp = $("<p>", {
+                id : `hp-${this.iD}`
+            });
+
+            $(hp).text(this.health);
     
             $(newDiv).append(name).append(image).append(hp);
+            $(newDiv).attr("id" , `cr-${this.iD}`);
     
             $("#user-space").append(newDiv);
             this.isUser = true;
@@ -78,11 +93,17 @@ function fighter(health, attack, counter, name, id){
                 src : `assets/images/${this.iD}charplaceholder.png`
             });
             var name = this.name;
-            var hp = this.health;
+            var hp = $("<p>", {
+                id : `hp-${this.iD}`
+            });
+
+            $(hp).text(this.health);
     
             $(newDiv).append(name).append(image).append(hp);
-    
+            $(newDiv).attr("id", `cr-${this.iD}`);
+
             $("#defend-space").append(newDiv);
+
             this.alreadyChosen = true;
             isDefenderChosen = true;
 
@@ -102,11 +123,85 @@ function fighter(health, attack, counter, name, id){
             userWeightedPower = userAttackPower;
             return userAttackPower;
     }
+    this.printHP = function () {
+        $(`#hp-${this.iD}`).text(this.health);
+    }
+
     this.testLog = function (){
         console.log(this.name);
         console.log(this.health);
         console.log(this.attack);
         console.log(this.isUser);
+    }
+}
+
+
+function appendElems () {
+    megaX.createElem();
+    zero.createElem();
+    sigma.createElem();
+    colonel.createElem();
+
+    for(var i = 0; i < fighterz.length; i++){
+        $(`#box${i}`).append(fighterz[i]);
+    }
+
+    
+}
+
+var gameInterval = function () {
+    setInterval(runtimeChecker, 60);
+}
+
+
+
+function runtimeChecker(){
+    megaX.printHP();
+    zero.printHP();
+    sigma.printHP();
+    colonel.printHP();
+
+    if((!Xonce) && megaX.health <= 0){
+        alert("X HAS BEEN KILLED");
+        $("#cr-1").html("");
+        if(!megaX.isUser){
+            isDefenderChosen = false;
+        }
+        Xonce = true;
+    }else if((!Zonce) && zero.health <= 0){
+        alert("Zero HAS BEEN KILLED");
+        $("#cr-2").html("");
+        if(!zero.isUser){
+            isDefenderChosen = false;
+        }
+        Zonce = true;
+    }else if((!Sonce) && sigma.health <= 0){
+        alert("Sigma HAS BEEN KILLED");
+        $("#cr-3").html("");
+        if(!sigma.isUser){
+            isDefenderChosen = false;
+        }
+        Sonce = true;
+    }else if((!Conce) && colonel.health <= 0){
+        alert("Colonel HAS BEEN KILLED");
+        $("#cr-4").html("");
+        if(!colonel.isUser){
+            isDefenderChosen = false;
+        }
+        Conce = true;
+    }
+    checkUserDeath();
+}
+
+function checkUserDeath(){
+    if((megaX.isUser === true) && (megaX.health <= 0)){
+        isUserDead = true;
+    }else if((zero.isUser === true) && (zero.health <= 0)){
+        isUserDead = true;
+    }else if((sigma.isUser === true) && (sigma.health <= 0)){
+        isUserDead = true;
+    }else if ((colonel.isUser === true) && (colonel.health <= 0)){
+        isUserDead = true;
     }
 }
 
@@ -126,17 +221,10 @@ function defenderHasBeenDefeated(){
 }
 
 function render(){
-    megaX.createElem();
-    megaX.testLog();
+    appendElems();
 
-    zero.createElem();
-    zero.testLog();
 
-    sigma.createElem();
-    sigma.testLog();
-
-    colonel.createElem();
-    colonel.testLog();
+    
     
 
     console.log(instancesLoaded);
@@ -145,24 +233,36 @@ function render(){
 }
 
 $(document).ready(function() {
+    
     render();
+    gameInterval();
     $("#cr-1").on("click", function (){
         if(!hasUserChosen){
+            $("#box0").html("");
             megaX.moveUserSpace();
             whoIsUser = megaX;
-        }else if(hasUserChosen &&  (!megaX.alreadyChosen)){
-            megaX.moveElemToDef(); 
+        }else if(hasUserChosen && (!isUserDead) && (!isDefenderChosen)){
+            $("#box0").html("");
+            megaX.moveElemToDef();
+            whoIsEnemy = megaX; 
+        }else if(hasUserChosen && isUserDead){
+            return;
         }else{
             return;
         }
     });
     $("#cr-2").on("click", function () {
         if(!hasUserChosen){
+            $("#box1").html("");
             zero.moveUserSpace();
-        }else if(hasUserChosen && (!zero.alreadyChosen)){
+            whoIsUser = zero;
+        }else if(hasUserChosen && (!isUserDead) && (!isDefenderChosen)){
+            $("#box1").html("")
             zero.moveElemToDef();
             whoIsEnemy = zero;
 
+        }else if(hasUserChosen && isUserDead){
+            return;
         }else{
             return;
         }
@@ -170,10 +270,30 @@ $(document).ready(function() {
     });
     $("#cr-3").on("click", function (){
         if(!hasUserChosen){
+            $("#box2").html("");
             sigma.moveUserSpace();
-            
-        }else if(hasUserChosen && (!sigma.alreadyChosen)){
+            whoIsUser = sigma;
+        }else if(hasUserChosen && (!isUserDead) && (!isDefenderChosen)){
+            $("#box2").html("");
             sigma.moveElemToDef();
+            whoIsEnemy = sigma;
+        }else if(hasUserChosen && isUserDead){
+            return;
+        }else{
+            return;
+        }
+    });
+    $("#cr-4").on("click", function (){
+        if(!hasUserChosen){
+            $("#box3").html("");
+            colonel.moveUserSpace();
+            whoIsUser = colonel;
+        }else if(hasUserChosen && (!isUserDead) && (!isDefenderChosen)){
+            $("#box3").html("")
+            colonel.moveElemToDef();
+            whoIsEnemy = colonel;
+        }else if(hasUserChosen && isUserDead){
+            return;
         }else{
             return;
         }
@@ -181,8 +301,9 @@ $(document).ready(function() {
     $("#attackbtn").on("click", function () {
         battleField(whoIsUser, whoIsEnemy);
 
-    })
+    });
 
 });
 
 console.log(megaX.battlePower());
+console.log(fighterz);
