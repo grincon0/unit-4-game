@@ -1,5 +1,47 @@
+
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P|Quantico');
 #defend-space{
     background-color: pink;
+}
+body{
+    background-color: black;
+}
+
+p h1{
+    color: whitesmoke;
+    font-family: 'Press Start 2P', cursive;
+}
+
+canvas{
+    position: relative;
+    left: 30%;
+}
+
+
+
+#box0{
+    border: 2px solid rgb(255, 47, 151);
+    border-radius: 2px;
+    font-family: 'Press Start 2P', cursive;
+
+}
+
+#box1{
+    border: 2px solid rgb(40, 8, 216);
+    border-radius: 2px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#box2{
+    border: 2px solid rgb(71, 255, 55);
+    border-radius: 2px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#box3{
+    border: 2px solid rgb(142, 55, 255);
+    border-radius: 2px;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .main{
@@ -11,17 +53,93 @@
     clear: right;
 }
 
-canvas{
+#canvas{
     border: 1px solid #d3d3d3;
     background-color: #f1f1f1;
-    background-image: url("../images/b1.gif");
+    background-image: url("../images/b2.gif");
+}
+#cr-0{
+    color: whitesmoke;
+    background-color: rgb(38, 38, 146);
+    border-radius: 3px;
+    font-family: 'Press Start 2P', cursive;
+}
+#cr-1{
+    color: whitesmoke;
+    background-color:rgb(61, 29, 206);
+    border-radius: 3px;
+    font-family: 'Press Start 2P', cursive;
+}
+#cr-2{
+    color: whitesmoke;
+    background-color: greenyellow;
+    border-radius: 3px;
+    font-family: 'Press Start 2P', cursive;
+}
+#cr-3{
+    color: whitesmoke;
+    background-color: purple;
+    border-radius: 3px;
+    font-family: 'Press Start 2P', cursive;
 }
 
-#cr-2{
-    background-color: greenyellow;
-}
+
 
 .test1{
     background-color: skyblue;
 
+}
+
+#wrapper{
+
+    border: 4px solid greenyellow;
+    margin: auto;
+    width: 1024px;
+}
+.base-area{
+    width: 100%;
+    margin: auto;
+}
+
+#attackbtn{
+    border: none;
+    border-radius: 2px;
+    color: cyan;
+    background-color: seagreen;
+    font-size: 16px;
+    padding: 15px 20px;
+    position:relative;
+    left: 50%;
+    text-decoration: none;
+    
+}
+
+attackbtn:hover{
+    color: red;
+    background-color: orange;
+}
+
+#user-feed{
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+}
+#enemy-feed{
+    color: rgb(255, 38, 38);
+    font-family: 'Press Start 2P', cursive;
+}
+@media screen and (max-width: 980px){
+    #wrapper{
+        width: 800px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    #wrapper{
+        width: 600px;
+    }
+}
+@media screen and (max-width: 640px){
+    #wrapper{
+        width: 500px;
+    }
 }
