@@ -11,6 +11,7 @@ var Zonce = false;
 var Sonce = false;
 var Conce = false;
 var isUserDead = false;
+var isMusicPlaying = false;
 
 // sprite animation checkers
 
@@ -49,6 +50,9 @@ var isOppAnimComp = false;
 
 //on click on the atk btn, triggers the scene animation
 var startAnim = false;
+
+
+var battle = new Audio('assets/audio/kraken.mp3');
 
 //base game
 
@@ -100,7 +104,6 @@ function fighter(health, attack, counter, name, id){
 
     }
     this.moveUserSpace = function () {
-        //var whichID = this.iD;
         if(!hasUserChosen){
             var newDiv = document.createElement("div");
             var image = $("<img>", {
@@ -256,15 +259,17 @@ function battleField (user, opponent){
         user.battlePower();
         var userAtk = userWeightedPower;
         opponent.health += -userAtk;
-        document.getElementById("user-feed").innerText = `${user.name} attacks ${opponent.name}...${opponent.name} suffered ${userAtk} points of damage!`;
+        $("#user-feed").text(`${user.name} attacks ${opponent.name}...${opponent.name} suffered ${userAtk} points of damage!`);
         user.health += -opponent.counterPower;
-        document.getElementById("enemy-feed").innerText = `${opponent.name} counters... ${user.name} suffered ${opponent.counterPower} points of damage!`;
+        $("#enemy-feed").text( `${opponent.name} counters... ${user.name} suffered ${opponent.counterPower} points of damage!`);
     
         user.incUserMulti();        
 
     }else{
-        document.getElementById("user-feed").innerText = "Choose a fighter!";
-        document.getElementById("enemy-feed").innerText ="And an enemy!";
+        
+        $("#user-feed").text("Choose a fighter!");
+        
+        $("#enemy-feed").text("and an enemy!");
     }
     
 }
@@ -277,9 +282,12 @@ function render(){
     appendElems();
     console.log(instancesLoaded);
 }
-
+$(document).keyup(function () {
+    if(!isMusicPlaying){
+        battle.play();
+    }
+});
 $(document).ready(function() {
-    
     render();
     gameInterval();
     $("#cr-1").on("click", function (){
@@ -370,12 +378,12 @@ $(document).ready(function() {
 
 //end of base game
 
-//I wanted to experiment with having sprites appear whenc you selected the characters and have them appear and fight on screen
-//This extra portion I was not able complete due to time constraints
+//I wanted to experiement rendering sprites
+//I was not able to complete this for now due to time constraints
 
 //code for animations are below
 
-//Warning the code below is pretty messy. I have yet to consolidate most of the code into a smaller  and condensed form
+//Warning the code below is pretty messy. I have yet to consolidate it
 
 //                                              -----leaving base game-----
 
