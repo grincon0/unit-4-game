@@ -1,8 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P|Quantico');
-#defend-space{
-    background-color: pink;
-}
+
 body{
     background-color: black;
 }
@@ -17,7 +15,21 @@ canvas{
     left: 30%;
 }
 
+.headline{
 
+    color: rgb(255, 47, 151);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+
+}
+
+.headline-enemy{
+
+    color: rgb(255, 47, 47);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+
+}
 
 #box0{
     border: 2px solid rgb(255, 47, 151);
@@ -82,19 +94,21 @@ canvas{
     border-radius: 3px;
     font-family: 'Press Start 2P', cursive;
 }
-
-
-
-.test1{
-    background-color: skyblue;
-
+#cr-4{
+    color: whitesmoke;
+    border-radius: 3px;
+    font-family: 'Press Start 2P', cursive;
 }
+
+
+
 
 #wrapper{
 
     border: 4px solid greenyellow;
     margin: auto;
     width: 1024px;
+    
 }
 .base-area{
     width: 100%;
@@ -105,11 +119,12 @@ canvas{
     border: none;
     border-radius: 2px;
     color: cyan;
-    background-color: seagreen;
+    background-color: rgb(255, 0, 149);
+    font-family: 'Press Start 2P', cursive;
     font-size: 16px;
     padding: 15px 20px;
     position:relative;
-    left: 50%;
+    left: 40%;
     text-decoration: none;
     
 }
@@ -122,10 +137,16 @@ attackbtn:hover{
 #user-feed{
     color: white;
     font-family: 'Press Start 2P', cursive;
+    margin: 2px;
+}
+
+#user-space{
+    margin: 2px;
 }
 #enemy-feed{
     color: rgb(255, 38, 38);
     font-family: 'Press Start 2P', cursive;
+    margin: 2px;
 }
 @media screen and (max-width: 980px){
     #wrapper{

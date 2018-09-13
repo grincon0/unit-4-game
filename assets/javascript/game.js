@@ -128,7 +128,7 @@ function fighter(health, attack, counter, name, id){
         }
     }
     this.moveElemToDef = function () {
-        //var whichID = this.iD;
+        
         if(hasUserChosen && !isDefenderChosen){
             var newDiv = document.createElement("div");
             var image = $("<img>", {
@@ -375,7 +375,9 @@ $(document).ready(function() {
 
 //code for animations are below
 
-//leaving base game
+//Warning the code below is pretty messy. I have yet to consolidate most of the code into a smaller  and condensed form
+
+//                                              -----leaving base game-----
 
 //anim variables
 
