@@ -208,28 +208,28 @@ function runtimeChecker(){
     colonel.printHP();
 
     if((!Xonce) && megaX.health <= 0){
-        alert("X HAS BEEN KILLED");
+        alert("X has been defeated");
         $("#cr-1").html("");
         if(!megaX.isUser){
             isDefenderChosen = false;
         }
         Xonce = true;
     }else if((!Zonce) && zero.health <= 0){
-        alert("Zero HAS BEEN KILLED");
+        alert("Zero has been defeated");
         $("#cr-2").html("");
         if(!zero.isUser){
             isDefenderChosen = false;
         }
         Zonce = true;
     }else if((!Sonce) && sigma.health <= 0){
-        alert("Sigma HAS BEEN KILLED");
+        alert("Sigma has been defeated");
         $("#cr-3").html("");
         if(!sigma.isUser){
             isDefenderChosen = false;
         }
         Sonce = true;
     }else if((!Conce) && colonel.health <= 0){
-        alert("Colonel HAS BEEN KILLED");
+        alert("Colonel has been defeated");
         $("#cr-4").html("");
         if(!colonel.isUser){
             isDefenderChosen = false;
